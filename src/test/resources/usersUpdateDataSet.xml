@@ -1,0 +1,20 @@
+<dataset> 
+	<table name="users"> 
+		<column>id</column> 
+		<column>firstname</column> 
+		<column>lastname</column> 
+		<column>dateofbirth</column> 
+		<row> 
+			<value>1000</value> 
+			<value>Ivan</value> 
+			<value>IvanovUpdate</value> 
+			<value>1998-12-18</value> 
+		</row> 
+		<row> 
+			<value>1001</value> 
+			<value>Oksana</value> 
+			<value>Doli</value> 
+			<value>1979-07-17</value> 
+		</row> 
+	</table> 
+</dataset> 
