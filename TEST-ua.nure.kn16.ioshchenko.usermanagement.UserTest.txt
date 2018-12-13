@@ -1,0 +1,9 @@
+Testsuite: ua.nure.kn16.ioshchenko.usermanagement.UserTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,017 sec
+
+Testcase: testGetFullName took 0,003 sec
+Testcase: Test_age1 took 0 sec
+Testcase: Test_age2 took 0 sec
+Testcase: Test_age3 took 0 sec
+Testcase: Test_age4 took 0 sec
+Testcase: Test_age5 took 0 sec
