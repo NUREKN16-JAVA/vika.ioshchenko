@@ -1,6 +1,4 @@
 package ua.nure.kn16.ioshchenko.usermanagement.db;
-
-
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.database.DatabaseConnection;
@@ -13,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ua.nure.kn16.ioshchenko.usermanagement.User;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

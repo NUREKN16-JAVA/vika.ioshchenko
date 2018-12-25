@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ====================================================================== 
-                                                                 
+     11 окт. 2018 г. 19:25:17                                                        
+
+     usermanagment    
+     description
+                                                           
      ====================================================================== -->
 <project name="usermanagment" basedir="." default="test">
 	 <property name="test-java-dir" value="${basedir}/src/test/java/"/>

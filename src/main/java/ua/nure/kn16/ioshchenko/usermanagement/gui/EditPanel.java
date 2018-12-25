@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-
 public class EditPanel extends JPanel implements ActionListener {
     private final static int FRAME_WIDTH = 400;
     private final static int FRAME_HEIGHT = 600;

@@ -28,6 +28,11 @@ public class MockUserDAO implements UserDAO {
         Long currentId = user.getId();
         users.remove(currentId);
     }
+    
+    @Override
+    public Collection<User> find(String firstName, String lastName) throws DatabaseException {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public User find(Long id) throws DatabaseException {

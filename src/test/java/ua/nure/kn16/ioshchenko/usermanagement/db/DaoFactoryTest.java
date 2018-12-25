@@ -1,5 +1,4 @@
 package ua.nure.kn16.ioshchenko.usermanagement.db;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

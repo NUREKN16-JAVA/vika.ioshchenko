@@ -3,8 +3,7 @@ import ua.nure.kn16.ioshchenko.usermanagement.User;
 public class DetailsServletTest extends MockServletTestCase {
 
     private static final String ATTR_USER = "user";
-  
-  private static final String BACK_OPTION = "Back";
+    private static final String BACK_OPTION = "Back";
 
     @Override
     public void setUp() throws Exception {

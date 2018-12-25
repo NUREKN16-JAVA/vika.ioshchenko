@@ -1,4 +1,4 @@
-﻿package ua.nure.kn16.ioshchenko.usermanagement;
+package ua.nure.kn16.ioshchenko.usermanagement;
 import org.junit.Before;
 import org.junit.Test;
 import java.time.LocalDate;

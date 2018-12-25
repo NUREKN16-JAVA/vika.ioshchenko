@@ -1,5 +1,4 @@
 package ua.nure.kn16.ioshchenko.usermanagement.db;
-
 import java.io.IOException;
 import java.util.Properties;
 

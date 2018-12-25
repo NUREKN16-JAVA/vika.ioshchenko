@@ -27,7 +27,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
     }
 
     private void initialize() {
-        this.setName("detailsPanel"); //$NON-NLS-1$
+        this.setName("detailsPanel"); 
         this.setLayout(new BorderLayout());
         this.add(getFieldPanel(), BorderLayout.NORTH);
         this.add(getButtonPanel(), BorderLayout.SOUTH);
@@ -45,9 +45,9 @@ public class DetailsPanel extends JPanel implements ActionListener {
     private JButton getOkButton() {
         if (okButton == null) {
             okButton = new JButton();
-            okButton.setText("OK"); //$NON-NLS-1$
-            okButton.setName("okButton"); //$NON-NLS-1$
-            okButton.setActionCommand("ok"); //$NON-NLS-1$
+            okButton.setText("OK"); 
+            okButton.setName("okButton"); 
+            okButton.setActionCommand("ok"); 
             okButton.addActionListener(this);
         }
         return okButton;
@@ -68,7 +68,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
     private JLabel getDateOfBirthLabel() {
         if (dateOfBirthLabel == null) {
             dateOfBirthLabel = new JLabel();
-            dateOfBirthLabel.setName("dateOfBirthLabel"); //$NON-NLS-1$
+            dateOfBirthLabel.setName("dateOfBirthLabel"); 
             dateOfBirthLabel.setText(dateOfBirth);
         }
         return dateOfBirthLabel;
@@ -77,7 +77,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
     private JLabel getLastNameLabel() {
         if (lastNameLabel == null) {
             lastNameLabel = new JLabel();
-            lastNameLabel.setName("lastNameLabel"); //$NON-NLS-1$
+            lastNameLabel.setName("lastNameLabel"); 
             lastNameLabel.setText(user.getLastName());
         }
         return lastNameLabel;
@@ -86,7 +86,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
     private JLabel getFirstNameLabel() {
         if (firstNameLabel == null) {
             firstNameLabel = new JLabel();
-            firstNameLabel.setName("firstNameLabel"); //$NON-NLS-1$
+            firstNameLabel.setName("firstNameLabel"); 
             firstNameLabel.setText(user.getFirstName());
         }
         return firstNameLabel;
@@ -94,7 +94,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
     private JLabel getIdLabel() {
         if (idLabel == null) {
             idLabel = new JLabel();
-            idLabel.setName("idLabel"); //$NON-NLS-1$
+            idLabel.setName("idLabel"); 
             idLabel.setText(String.valueOf(user.getId()));
         }
         return idLabel;
@@ -102,7 +102,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ("ok".equalsIgnoreCase(e.getActionCommand())) {//$NON-NLS-1$
+        if ("ok".equalsIgnoreCase(e.getActionCommand())) {
             this.setVisible(false);
         }
         this.setVisible(false);

@@ -2,7 +2,6 @@ package ua.nure.kn16.ioshchenko.usermanagement.gui;
 import ua.nure.kn16.ioshchenko.usermanagement.User;
 import ua.nure.kn16.ioshchenko.usermanagement.db.DatabaseException;
 import ua.nure.kn16.ioshchenko.usermanagement.util.Message;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

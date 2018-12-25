@@ -2,7 +2,7 @@ package ua.nure.kn16.ioshchenko.usermanagement.web;
 import ua.nure.kn16.ioshchenko.usermanagement.User;
 import ua.nure.kn16.ioshchenko.usermanagement.db.DaoFactory;
 import ua.nure.kn16.ioshchenko.usermanagement.db.DatabaseException;
-import ua.nure.kn16.ioshchenko.usermanagement.web.exceptions.ValidationException;
+import ua.nure.kn16.ioshchenkoo.usermanagement.web.Exception.ValidationException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

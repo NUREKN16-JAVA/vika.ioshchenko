@@ -1,5 +1,4 @@
 package ua.nure.kn16.ioshchenko.usermanagement.db;
-
 import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -18,7 +17,7 @@ class HsqlDBUserDAO implements UserDAO {
     private final String FIND_ALL_USERS = "SELECT id, firstname, lastname, dateofbirth FROM users";
     private final String DELETE_USER = "DELETE FROM USERS WHERE id = ?";
 
-    HsqlDBUserDAO() {
+    public HsqlDBUserDAO() {
     }
 
     public ConnectionFactory getConnectionFactory() {
