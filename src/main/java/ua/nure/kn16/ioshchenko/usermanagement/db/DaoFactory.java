@@ -3,49 +3,62 @@ package ua.nure.kn16.ioshchenko.usermanagement.db;
 import java.io.IOException;
 import java.util.Properties;
 
-public class DaoFactory {
-    public static final String USER_DAO = "dao.ua.nure.kn16.ioshchenko.usermanagement.db.UserDAO";
-private final Properties properties;
-	
-	private final static DaoFactory INSTANCE = new DaoFactory();
-	
-	/**  
-	 * Create exactly one DaoFactory
+/**
+ * Class which realize factory for DAO. Realized with Singleton
+ */
+public abstract class DaoFactory {
+    private static final String DAO_FACTORY = "dao.factory";
+    protected static Properties properties;
+    private  static DaoFactory instance;
 
-	 */
-	public static DaoFactory getInstance() {
-		return INSTANCE;
-	}
-	
-	private DaoFactory() {
-		properties = new Properties();
-		try {
-			properties.load(getClass().getClassLoader().getResourceAsStream("settings.properties"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	private ConnectionFactory getConnectionFactory() {
-		String user = properties.getProperty("connection.user");
-		String password = properties.getProperty("connection.password");
-		String url = properties.getProperty("connection.url");
-		String driver = properties.getProperty("connection.driver");
-		return new ConnectionFactoryImpl(driver, url, user, password);
-	}
-	/**
-	 * 
-	 * @return UserDao 
-	 */
-	public UserDAO getUserDao() {
-		UserDAO result = null;
-		try {
-			Class clazz = Class.forName(properties.getProperty(USER_DAO));
-			result = (UserDAO) clazz.newInstance();
-			result.setConnectionFactory(getConnectionFactory());
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		return result;
-	}
+    static {
+        properties = new Properties();
+        try {
+            properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("settings.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Constructor to read connection settings from file
+     */
+    protected DaoFactory () {}
+
+    /**
+     * Method to get current instance of DAOFactory object
+     * @return Instance of DAOFactory to support Singleton
+     */
+    public static synchronized DaoFactory getInstance() {
+        if (instance == null) {
+            try {
+                Class factoryClass = Class.forName(properties.getProperty(DAO_FACTORY));
+                instance = (DaoFactory) factoryClass.newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return instance;
+    }
+
+    public static void init (Properties properties) {
+        DaoFactory.properties = properties;
+        instance = null;
+    }
+
+    /**
+     * Method to setup settings from file and pass them to ConnectionFactoryImpl
+     * @return ConnectionFactoryImpl object
+     */
+    protected ConnectionFactory createConnection () {
+               return new ConnectionFactoryImpl(properties);
+    }
+
+    /**
+     * Creates new UserDAO object with set upped properties from file
+     * @return UserDOA object
+     * @throws ReflectiveOperationException
+     */
+   abstract public UserDAO getUserDAO () throws ReflectiveOperationException;
 }

@@ -32,8 +32,8 @@ public class HsqlDBUserDaoTest extends DatabaseTestCase {
     @Before
     public void setUp() throws Exception {
         getConnection();
-        user = new User("Ivan","Ivanov",new Date());
-        dao = new HsqlDBUserDao(connectionFactory);
+        user = new User();
+        dao = new HsqlDBUserDAO(connectionFactory);
     }
 
     @After
@@ -52,7 +52,7 @@ public class HsqlDBUserDaoTest extends DatabaseTestCase {
         assertNotNull(userResult.getId());
         assertEquals(user.getFirstName(),userResult.getFirstName());
         assertEquals(user.getLastName(),userResult.getLastName());
-        assertEquals(user.getDateofBirth(),userResult.getDateofBirth());
+        assertEquals(user.getDateOfBirth(),userResult.getDateOfBirth());
     }
     @Override
     protected IDatabaseConnection getConnection() throws Exception {
@@ -96,7 +96,7 @@ public class HsqlDBUserDaoTest extends DatabaseTestCase {
      */
     @Test
     public void testDelete() throws DatabaseException {
-        User testUser = new User(ID, "Ivan", "Ivanov", new Date());
+        User testUser = new User();
         dao.delete(testUser);
         assertNull(dao.find(ID));
     }
@@ -106,24 +106,12 @@ public class HsqlDBUserDaoTest extends DatabaseTestCase {
      * @throws DatabaseException
      */
     @Test
-    public void testUpdate() {
-		try {
-			User user = new User();
-			user.setFirstName(USER_NAME+"Update");
-			user.setLastName(USER_SURNAME+"Update");
-			user.setDateofBirth(new SimpleDateFormat("dd-MM-yyyy").parse(DATE_OF_BIRTH_ETALON));
-			user.setId(1000L);
-			dao.update(user);
-			IDataSet databaseDataSet = getConnection().createDataSet();
-			ITable actualTable = databaseDataSet.getTable("USERS");
-			IDataSet expectedDataSet = new XmlDataSet(getClass().getResourceAsStream("/usersUpdateDataSet.xml"));
-			ITable expectedTable = expectedDataSet.getTable("USERS");
-			Assertion.assertEquals(expectedTable, actualTable);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+    public void testUpdate() throws DatabaseException {
+        User user = new User();
+        user.setId(0L);
+        dao.update(user);
+        User testUser = dao.find(user.getId());
+        assertNotNull(testUser);
+        assertEquals(user.getLastName(), testUser.getLastName());
+    }
 }

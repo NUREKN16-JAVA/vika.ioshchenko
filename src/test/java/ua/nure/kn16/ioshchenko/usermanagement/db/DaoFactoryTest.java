@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class DaoFactoryTest {
 
-    @Before
+	@Before
     public void setUp() throws Exception {
     }
   
@@ -22,7 +22,7 @@ public class DaoFactoryTest {
         try {
 			DaoFactory daoFactory = DaoFactory.getInstance();
 			assertNotNull("DaoFactory instance is null", daoFactory);
-			UserDAO userDao = daoFactory.getUserDao();
+			UserDAO userDao = daoFactory.getUserDAO();
 			assertNotNull("userDao instance is null", userDao);
 		} catch (Exception e) {
 			e.printStackTrace();

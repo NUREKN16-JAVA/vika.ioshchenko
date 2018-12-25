@@ -1,136 +1,123 @@
 package ua.nure.kn16.ioshchenko.usermanagement;
-
+import javax.jws.soap.SOAPBinding;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
-public class User implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4771647075957243486L;	
-	private Long id;
-	private String firstName;
-	private String LastName;
-	private Date dateofBirth;
-	
-	public User() {
-		super();
-	}
-	
-	
-	public User(String firstName, String lastName, Date dateofBirth) {
-		this.firstName = firstName;
-		this.LastName = lastName;
-		this.dateofBirth = dateofBirth;
-	}
-	
-	public User(Long id, String firstName, String lastName, Date dateofBirth) {
-		this.id = id;
-		this.firstName = firstName;
-		LastName = lastName;
-		this.dateofBirth = dateofBirth;
-	}
+/**
+* Class User contains information about user
+* */
+public class User {
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private Date dateOfBirth;
 
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return LastName;
-	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
-	}
-	public Date getDateofBirth() {
-		return dateofBirth;
-	}
-	public void setDateofBirth(Date dateofBirth) {
-		this.dateofBirth = dateofBirth;
-	}
-	
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((LastName == null) ? 0 : LastName.hashCode());
-		result = prime * result + ((dateofBirth == null) ? 0 : dateofBirth.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    public User() {}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (LastName == null) {
-			if (other.LastName != null)
-				return false;
-		} else if (!LastName.equals(other.LastName))
-			return false;
-		if (dateofBirth == null) {
-			if (other.dateofBirth != null)
-				return false;
-		} else if (!dateofBirth.equals(other.dateofBirth))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", LastName=" + LastName + ", dateofBirth=" + dateofBirth
-				+ "]";
-	}
-
-	public String getFullName() {
-        return new StringBuilder().append(getLastName()).append(", ").append(getFirstName()).toString();
+    public User(Long id, String firstName, String lastName, Date dateOfBirth) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
-	
-	public int getAge() {
-        Calendar calendar = Calendar.getInstance();
-        
-        calendar.setTime(new Date());
-        final int currentYear = calendar.get(Calendar.YEAR);
-        final int currentMonth = calendar.get(Calendar.MONTH);
-        final int currentDate = calendar.get(Calendar.DATE);
-        
-        calendar.setTime(dateofBirth);
-        final int birthYear = calendar.get(Calendar.YEAR);
-        final int birthMonth = calendar.get(Calendar.MONTH);
-        final int birthDate = calendar.get(Calendar.DATE);
-        
-        int age = currentYear - birthYear;
-        
-        if ((currentMonth == birthMonth && birthDate > currentDate) || currentMonth < birthMonth) 
-        {
-            age--;
+
+    public User(String firstName, String lastName, Date dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+	public Long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    /**
+    * @return user's full name in format "First name, Last name"
+    * */
+    String getFullName() {
+        return lastName + ", " + firstName;
+    }
+
+    /**
+     * This method expects correct birth date established in the past
+     * @return user's age in years
+     */
+    public int getAge() {
+        Calendar dateOfBirthday = Calendar.getInstance();
+        dateOfBirthday.setTime(getDateOfBirth());
+
+        Calendar today = Calendar.getInstance();
+
+        if (dateOfBirthday.after(today)) {
+            throw new IllegalArgumentException("The age can not be negative!");
         }
-        return age;
+
+        DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        int d1 = Integer.parseInt(formatter.format(getDateOfBirth()));
+        int d2 = Integer.parseInt(formatter.format(today.getTime()));
+        int ageCounter = (d2 - d1) / 10000;
+
+        return ageCounter;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + firstName + "\nSurname: " + lastName + "\nDate of Birth: " + dateOfBirth;
+    }
+
+    @Override
+    public int hashCode() {
+        if (this.getId() == null) {
+            return 0;
+        }
+        return this.getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+        if (this.getId() == null && ((User)obj).getId() == null) {
+            return true;
+        }
+
+        return this.getId().equals(((User)obj).getId());
     }
 }

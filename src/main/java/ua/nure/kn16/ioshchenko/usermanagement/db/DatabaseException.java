@@ -1,31 +1,32 @@
 package ua.nure.kn16.ioshchenko.usermanagement.db;
 
-import java.sql.SQLException;
-
+/**
+ * Class with custom DB exceptions. Checked.
+ */
 public class DatabaseException extends Exception {
+    private String name;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2587172538669325935L;
+    /**
+     * Constructor which set up name for new exception
+     * @param name
+     */
+    DatabaseException (String name) {
+        this.name = name;
+    }
 
-	public DatabaseException() {
-	}
-  
-	public DatabaseException(String arg0) {
-		super(arg0);
+    /**
+     * @return String name of exception
+     */
+    public String getName() {
+        return name;
+    }
 
-	}
-
-	public DatabaseException(Throwable arg0) {
-		super(arg0);
-	}
-
-	public DatabaseException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-	}
-
-	public DatabaseException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
-		super(arg0, arg1, arg2, arg3);
-	}
+    /**
+     * Returns exception message from parent class
+     * @return super.getMessage()
+     */
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

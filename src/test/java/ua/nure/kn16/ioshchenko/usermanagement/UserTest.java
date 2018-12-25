@@ -1,104 +1,66 @@
-package ua.nure.kn16.ioshchenko.usermanagement;
-
-import static org.junit.Assert.*;
-import java.util.Calendar;
-import java.util.Date;
-import org.junit.After;
+﻿package ua.nure.kn16.ioshchenko.usermanagement;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.time.LocalDate;
+import static org.junit.Assert.assertEquals;
 public class UserTest {
-	private static final int YEAR_OF_BIRTH = 1999;
-	private static final long ID = 1L;
-	  
-	private User user;
-	
-	//Tests are relevant for October 30
-	// Test (getting the full name) 
-	private static final String NAME = "Ivan";
-	private static final String SURNAME = "Ivanov";
-	
-	// Test (1) When is the birthday on this day (October 26)
-	private static final int DAY_OF_BIRTH_1 = 26;
-	private static final int MONTH_OF_BIRTH_1 = Calendar.OCTOBER;
-	
-	// Test (2) When a month has already passed, the day has passed 
-	private static final int DAY_OF_BIRTH_2 = 10;
-	private static final int MONTH_OF_BIRTH_2 = Calendar.APRIL;
-	
-	// Test (3) When the month has not yet come, the day has not come 
-	private static final int DAY_OF_BIRTH_3 = 28;
-	private static final int MONTH_OF_BIRTH_3 = Calendar.NOVEMBER;		
-	
-	// Test (4) When the month come, the day passed
-	private static final int DAY_OF_BIRTH_4 = 24;
-	private static final int MONTH_OF_BIRTH_4 = Calendar.OCTOBER;	
-	
-	// Test (5) When the month came, and the day did not come 
-	private static final int DAY_OF_BIRTH_5 = 30;
-	private static final int MONTH_OF_BIRTH_5 = Calendar.OCTOBER;
+    private User user;
+    private static final Long ID = 1L;
+    private static final String FIRSTNAME = "Иван";
+    private static final String LASTNAME = "Иванов";
 
-	@Before
-	public void setUp() throws Exception {
-		user = new User(ID, NAME, SURNAME, new Date());
-	}
+    //Set up method to initialize user object
+    @Before
+    public void setUp()  throws Exception {
+        user = new User(ID, FIRSTNAME, LASTNAME, null);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    //Some of this methods may not work after October 31
 
-	@Test
-	public void testGetFullName()  {
-		assertEquals("Ivanov, Ivan", user.getFullName());
-	}
-	
-	 // Test (1) When is the birthday on this day 
+    // Test to get user full name
     @Test
-    public void Test_age1(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_1, DAY_OF_BIRTH_1);
-        Date dateofBirth=calendar.getTime();
-        user.setDateofBirth(dateofBirth);
-        assertEquals(19, user.getAge());
+    public void testGetFullName() throws Exception {
+        assertEquals("Иванов, Иван", user.getFullName());
     }
-	
-	// Test (2) When a month has already passed, the day has passed 
-	@Test 
-    public void Test_age2(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_2, DAY_OF_BIRTH_2);
-        Date dateofBirth=calendar.getTime();
-        user.setDateofBirth(dateofBirth);
-        assertEquals(19, user.getAge());
-    }
-	
-	// Test (3) When the month has not yet come, the day has not come
+
+    // Birthday before current day and month
     @Test
-    public void Test_age3(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_3, DAY_OF_BIRTH_3);
-        Date dateofBirth=calendar.getTime();
-        user.setDateofBirth(dateofBirth);
-        assertEquals(18, user.getAge());
+    public void testGetAgeAfter() throws Exception {
+        LocalDate localDate =LocalDate.of(1998, 4, 8);
+        User user = new User(ID, FIRSTNAME, LASTNAME, localDate);
+        assertEquals(20, user.getAge());
     }
-	
-	 // Test (4) When the month come, the day passed
-    @Test 
-    public void Test_age4(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(YEAR_OF_BIRTH,  MONTH_OF_BIRTH_4, DAY_OF_BIRTH_4);
-        Date dateofBirth = calendar.getTime();
-        user.setDateofBirth(dateofBirth);
+
+    // Birthday after current day and month
+    @Test
+    public void testGetAgeBefore() throws Exception {
+        LocalDate localDate = LocalDate.of(1998, 12, 13);
+        User user = new User(ID, FIRSTNAME, LASTNAME, localDate);
         assertEquals(19, user.getAge());
     }
 
-	// Test (5) When the month came, and the day did not come  
+    // Birthday in current month already passed
     @Test
-    public void Test_age5(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_5, DAY_OF_BIRTH_5);
-        Date dateofBirth=calendar.getTime();
-        user.setDateofBirth(dateofBirth);
-        assertEquals(18, user.getAge());
+    public void testGetAgeSameMonthAfter() throws Exception {
+        LocalDate localDate = LocalDate.of(1998, 10, 10);
+        User user = new User(ID, FIRSTNAME, LASTNAME, localDate);
+        assertEquals(20, user.getAge());
+    }
+
+    // Birthday in current month not passed yet
+    @Test
+    public void testGetAgeSameMonthBefore() throws Exception {
+        LocalDate localDate = LocalDate.of(1998, 10, 31);
+        User user = new User(ID, FIRSTNAME, LASTNAME, localDate);
+        assertEquals(19, user.getAge());
+    }
+
+    // Birthday is today
+    @Test
+    public void testGetAgeSameDay () throws Exception {
+        LocalDate localDate = LocalDate.now();
+        localDate = localDate.withYear(1998);
+        User user = new User(ID, FIRSTNAME, LASTNAME, localDate);
+        assertEquals(20, user.getAge());
     }
 }
